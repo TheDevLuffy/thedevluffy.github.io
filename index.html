@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>재헌이 선물</title>
+</head>
+<body>
+<div>
+    <h1>동영상 추가하기</h1>
+    <input id="youtube-embed-url" type="text" placeholder="11글자 코드를 입력하세요"/>
+    <input id="youtube-enroll-btn" type="button" value="추가하기"/>
+</div>
+<div id="youtube-container">
+    <div>
+        <h1>괴물쥐</h1>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/Qm5FE8SMsNA" frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+    </div>
+    <div>
+        <h1>도선생님</h1>
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/4wDuAMNBRfc" frameborder="0"
+                allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+    </div>
+    <hr/>
+    <div id="youtube-added">
+        <h1>추가된 동영상</h1>
+    </div>
+</div>
+<script>
+  const text = document.getElementById('youtube-embed-url')
+  const btn = document.getElementById('youtube-enroll-btn')
+  const youtubeAdded = document.getElementById('youtube-added')
+
+  function btnHandler() {
+    const input = text.value
+    if (input.length === 0) { // 비어있을 때는 작동하면 안됨.
+      alert('url 을 입력해주세요.')
+      return
+    }//Qm5FE8SMsNA
+    const regex = /^[A-Za-z0-9]{11}$/i
+    if (!regex.test(input)) { // 유튜브 동영상 코드 형식(대소문자숫자조합 11글자)에 맞지 않으면 안됨. 정규 표현식 검색
+      alert('11글자 영어 코드를 입력해주세요.')
+      return
+    }
+    youtubeAdded.innerHTML += generateYoutubeElement(text.value)
+    alert(`${input} 영상이 추가됨`)
+    text.value = ''
+  }
+
+  function generateYoutubeElement(url) {
+    return `<div><iframe width="560" height="315" src="https://www.youtube.com/embed/${url}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div><hr/>`
+  }
+
+  btn.addEventListener('click', btnHandler)
+</script>
+</body>
+</html>
